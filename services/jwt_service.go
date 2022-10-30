@@ -1,9 +1,9 @@
 package services
 
 import (
+	"fmt"
 	"time"
 
-	"github.com/go-playground/locales/ee_GH"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -42,4 +42,15 @@ func (s *jwtSercice) GenerateToken(id uint) (string, error) {
 	}
 
 	return t, nil
+}
+
+func (s *jwtSercice) ValidateToken (token string) bool {
+	_, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
+		if _, isValid := t.Method.(*jwt.SigningMethodHMAC); !isValid {
+			return nil, fmt.Errorf("inavalid token %v", token)
+		}
+		return []byte(s.secretKey), nil
+	})
+
+	return err == nil
 }
