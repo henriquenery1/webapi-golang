@@ -1,9 +1,9 @@
 package controllers
 
 import (
-
 	"github.com/gin-gonic/gin"
 	"github.com/hyperyuri/webapi-with-go/database"
+	"github.com/hyperyuri/webapi-with-go/models"
 	"github.com/hyperyuri/webapi-with-go/services"
 )
 
@@ -28,7 +28,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if user.Password != services.SHA256Enconder(p.Password) {
+	if user.Password != services.SHA256Encoder(p.Password) {
 		c.JSON(401, gin.H{
 			"error": "invalid credentials",
 		})
@@ -46,4 +46,5 @@ func Login(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"token": token,
 	})
+
 }

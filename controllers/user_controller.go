@@ -20,7 +20,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	p.Password = services.SHA256Enconder(p.Password)
+	p.Password = services.SHA256Encoder(p.Password)
 
 	err = db.Create(&p).Error
 	if err != nil {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func SHA256Enconder(s string) string {
+func SHA256Encoder(s string) string {
 	str := sha256.Sum256([]byte(s))
 
 	return fmt.Sprintf("%x", str)
