@@ -1,9 +1,9 @@
 package controllers
 
 import (
+
 	"github.com/gin-gonic/gin"
 	"github.com/hyperyuri/webapi-with-go/database"
-	"github.com/hyperyuri/webapi-with-go/models"
 	"github.com/hyperyuri/webapi-with-go/services"
 )
 
@@ -34,4 +34,16 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
+
+	token, err := services.NewJWTService().GenerateToken(user.ID)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"token": token,
+	})
 }
