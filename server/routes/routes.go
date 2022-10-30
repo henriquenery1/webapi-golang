@@ -20,6 +20,8 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 			books.PUT("/", controllers.EditBook)
 			books.DELETE("/:id", controllers.DeleteBook)
 		}
+
+		main.POST("login", controllers.Login)
 	}
 
 	return router
