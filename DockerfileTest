@@ -1,0 +1,18 @@
+FROM golang:bullseye AS builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN go run main.go
+
+
+FROM scratch
+
+WORKDIR /app
+
+COPY  --from=bullseye . . 
+
+EXPOSE 3000
+
+CMD [ "./app" ]
